@@ -10,6 +10,9 @@ client/node_modules
 node_modules
 client/blog
 
+package.json
+package-lock.json
+
 dev/api
 upload
 *Full_Res*

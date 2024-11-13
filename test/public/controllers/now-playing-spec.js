@@ -19,6 +19,7 @@ describe("NowPlayingCtrl", function() {
 		$controller("NowPlayingCtrl", {
 			$scope: scope
 		});
+		
 	}));
 
 	it("should add current track with album art to scope", function() {

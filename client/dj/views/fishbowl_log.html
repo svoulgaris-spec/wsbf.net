@@ -11,6 +11,9 @@
 
 	<div class="panel-body">
 		<a href="" ng-click="addItem()">Log a new item</a>
+		<!-- <span style="margin-left: 5em;">
+			<a href="" ng-click="editItem()">Edit</a>
+		</span> -->
 	</div>
 
 	<table class="table">
@@ -28,6 +31,7 @@
 				<td>{{f.description}}</td>
 				<td class="text-center">
 					<span class="button-icon" ng-click="deleteItem(f.fishbowl_logID)">&times;</span>
+					<span class="button-icon" ng-click="editItem(f.fishbowl_logID)">&times;</span>
 				</td>
 			</tr>
 		</tbody>

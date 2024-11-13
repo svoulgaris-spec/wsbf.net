@@ -64,6 +64,23 @@ function log_fishbowl_item($mysqli, $item)
 }
 
 /**
+ * Update an item in the current user's fishbowl log.
+ *
+ * @param mysqli
+ * @param item
+ */
+function update_fishbowl_log_item($mysqli, $item)
+{
+	$q = "UPDATE `fishbowl_log` SET "
+		. "date = '$item[date]', "
+		. "log_type = '$item[log_type]', "
+		. "description = '$item[description]' "
+		. "WHERE fishbowl_logID = '$item[fishbowl_logID]' "
+		. "AND username = '$_SESSION[username]';";
+	exec_query($mysqli, $q);
+}
+
+/**
  * Delete an item in the current user's fishbowl log.
  *
  * @param mysqli
@@ -98,6 +115,22 @@ else if ( $_SERVER["REQUEST_METHOD"] == "POST" ) {
 	}
 
 	log_fishbowl_item($mysqli, $item);
+	$mysqli->close();
+
+	exit;
+}
+else if ( $_SERVER["REQUEST_METHOD"] == "PUT" ) {
+	$mysqli = construct_connection();
+
+	$item = json_decode(file_get_contents("php://input"), true);
+	$item = escape_json($mysqli, $item);
+
+	if ( !validate_fishbowl_item($mysqli, $item) || !isset($item["fishbowl_logID"]) ) {
+		header("HTTP/1.1 404 Not Found");
+		exit("Invalid input");
+	}
+
+	update_fishbowl_log_item($mysqli, $item);
 	$mysqli->close();
 
 	exit;
