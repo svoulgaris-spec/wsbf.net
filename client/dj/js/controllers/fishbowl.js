@@ -76,8 +76,14 @@ fishbowlModule.controller("FishbowlLogCtrl", ["$scope", "$uibModal", "alert", "d
 
 	// NEW CODE
 	$scope.editItem = function(fishbowl_logID) {
-		var itemToEdit = $scope.fishbowl_log.find(item => item.fishbowl_logID === fishbowl_logID);
-	
+		var itemToEdit = null;
+		for (var i = 0; i < $scope.fishbowl_log.length; i++) {
+			if ($scope.fishbowl_log[i].fishbowl_logID === fishbowl_logID) {
+				itemToEdit = $scope.fishbowl_log[i];
+				break;
+			}
+		}
+			
 		$uibModal.open({
 			templateUrl: "views/fishbowl_log_item.html",
 			controller: "FishbowlLogItemCtrl",
